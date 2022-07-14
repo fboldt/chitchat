@@ -1,0 +1,30 @@
+{
+  "description": "Successive development of a simple social network.",
+  "version": "0.0.1",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "name": "chitchat",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fboldt/chitchat.git"
+  },
+  "keywords": [
+    "social network",
+    "tutorial",
+    "practice",
+    "study"
+  ],
+  "author": "Francisco de Assis Boldt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fboldt/chitchat/issues"
+  },
+  "homepage": "https://github.com/fboldt/chitchat#readme"
+}
