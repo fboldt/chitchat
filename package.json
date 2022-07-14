@@ -2,14 +2,10 @@
   "description": "Successive development of a simple social network.",
   "version": "0.0.1",
   "main": "app.js",
-  "dependencies": {
-    "express": "^4.18.1"
-  },
   "name": "chitchat",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/fboldt/chitchat/issues"
   },
-  "homepage": "https://github.com/fboldt/chitchat#readme"
+  "homepage": "https://github.com/fboldt/chitchat#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }
