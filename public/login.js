@@ -7,14 +7,6 @@ const formloginhtml = `
 </form>`
 section_login.innerHTML = formloginhtml
 
-const checklogin = async (data) => {
-    if (data.username != "") {
-        section_login.innerHTML = `${data.username} <a href="logout">logout</a>`
-    } else {
-        section_login.innerHTML = formloginhtml
-    }
-}
-
 const formlogin = document.querySelector('#formloginhtml');
 formlogin.addEventListener('submit', function (e) {
     e.preventDefault()
@@ -26,3 +18,11 @@ formlogin.addEventListener('submit', function (e) {
     .then(res => res.json())
     .then(data => checklogin(data))
 })
+
+const checklogin = async (data) => {
+    if (data.username != "") {
+        section_login.innerHTML = `${data.username} <a href="login">logout</a>`
+    } else {
+        section_login.innerHTML = formloginhtml
+    }
+}
