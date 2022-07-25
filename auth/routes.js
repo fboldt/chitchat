@@ -1,16 +1,8 @@
 const express = require('express')
 const router = express.Router();
+const { login, logout } = require('./controller')
 
-router.post('/', (req, res) => { // login
-    const { username, password } = req.body
-    if (username === 'alice' && password === '123') {
-        return res.status(200).json({ "username": username })
-    }
-    return res.status(401).json({ "username": "" })
-})
-
-router.get('/', (req, res) => { // logout
-    return res.status(200).redirect('/')
-})
+router.post('/', login)
+router.get('/', logout)
 
 module.exports = router
