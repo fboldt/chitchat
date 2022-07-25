@@ -1,28 +1,63 @@
-const section_login = document.querySelector('#section_login')
-const formloginhtml = `
-<form id="formloginhtml">
-    <input type="text" name="username" id="input_username" placeholder="username" size="6">
-    <input type="password" name="password" id="input_password" placeholder="password" size="6">
-    <button type="submit">login</button>
-</form>`
-section_login.innerHTML = formloginhtml
+const sectionlogin = document.querySelector('#sectionlogin')
 
-const formlogin = document.querySelector('#formloginhtml');
-formlogin.addEventListener('submit', function (e) {
-    e.preventDefault()
-    const payload = new URLSearchParams(new FormData(this));
+const checklogin = async () => {
+    const username = localStorage.getItem('username')
+    if (!username) {
+        displayFormLogin()
+    } else {
+        displayLinkLogout(username)
+    }
+}
+
+const displayFormLogin = () => {
+    sectionlogin.innerHTML = `
+        <form>
+            <input type="text" name="username" placeholder="username" size="6">
+            <input type="password" name="password" placeholder="password" size="6">
+            <button type="submit">login</button>
+        </form>`
+    const formlogin = sectionlogin.querySelector('form');
+    formlogin.addEventListener('submit', function (e) {
+        e.preventDefault()
+        const payload = new URLSearchParams(new FormData(this));
+        sendLogin(payload)
+    })
+}
+
+const sendLogin = (payload) => {
     fetch('login', {
         method: 'POST',
         body: payload,
     })
-    .then(res => res.json())
-    .then(data => checklogin(data))
-})
-
-const checklogin = async (data) => {
-    if (data.username != "") {
-        section_login.innerHTML = `${data.username} <a href="login">logout</a>`
-    } else {
-        section_login.innerHTML = formloginhtml
-    }
+        .then(res => res.json())
+        .then(data => {
+            const { username } = data
+            if (username) {
+                localStorage.setItem('username', username)
+            }
+            checklogin()
+        })
 }
+
+const displayLinkLogout = (username) => {
+    sectionlogin.innerHTML = `${username} <a href="#">logout</a>`
+    const linklogout = sectionlogin.querySelector('a');
+    linklogout.addEventListener('click', function (e) {
+        e.preventDefault()
+        sendLogout()
+    })
+}
+
+const sendLogout = () => {
+    fetch('login', { method: 'GET' })
+        .then(res => res.json())
+        .then(data => {
+            const { username } = data
+            if (!username) {
+                localStorage.removeItem('username')
+            }
+            checklogin()
+        })
+}
+
+checklogin()
