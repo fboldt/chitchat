@@ -2,7 +2,8 @@ const sectionlogin = document.querySelector('#sectionlogin')
 
 const checklogin = async () => {
     const username = localStorage.getItem('username')
-    if (!username) {
+    const token = localStorage.getItem('token')
+    if (!username || !token) {
         displayFormLogin()
     } else {
         displayLinkLogout(username)
@@ -31,9 +32,10 @@ const sendLogin = (payload) => {
     })
         .then(res => res.json())
         .then(data => {
-            const { username } = data
-            if (username) {
+            const { username, token } = data
+            if (username && token) {
                 localStorage.setItem('username', username)
+                localStorage.setItem('token', token)
             }
             checklogin()
         })
@@ -52,9 +54,10 @@ const sendLogout = () => {
     fetch('login', { method: 'GET' })
         .then(res => res.json())
         .then(data => {
-            const { username } = data
-            if (!username) {
+            const { username, token } = data
+            if (!username || !token) {
                 localStorage.removeItem('username')
+                localStorage.removeItem('token')
             }
             checklogin()
         })
