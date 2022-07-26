@@ -1,6 +1,6 @@
 const sectionlogin = document.querySelector('#sectionlogin')
 
-const checklogin = async () => {
+const checkLogin = async () => {
     const username = localStorage.getItem('username')
     const token = localStorage.getItem('token')
     if (!username || !token) {
@@ -16,12 +16,18 @@ const displayFormLogin = () => {
             <input type="text" name="username" placeholder="username" size="6">
             <input type="password" name="password" placeholder="password" size="6">
             <button type="submit">login</button>
+            <a href="#">sign in</a>
         </form>`
     const formlogin = sectionlogin.querySelector('form');
     formlogin.addEventListener('submit', function (e) {
         e.preventDefault()
         const payload = new URLSearchParams(new FormData(this));
         sendLogin(payload)
+    })
+    const linksignin = formlogin.querySelector('a')
+    linksignin.addEventListener('click', function (e) {
+        e.preventDefault()
+        displayFormSignin()
     })
 }
 
@@ -37,7 +43,45 @@ const sendLogin = (payload) => {
                 localStorage.setItem('username', username)
                 localStorage.setItem('token', token)
             }
-            checklogin()
+            checkLogin()
+        })
+}
+
+const displayFormSignin = () => {
+    sectionlogin.innerHTML = `
+        <form>
+            <input type="text" name="username" placeholder="username" size="6">
+            <input type="text" name="email" placeholder="email" size="6">
+            <input type="password" name="password" placeholder="password" size="6">
+            <button type="submit">sign in</button>
+            <a href="#">cancel</a>
+        </form>`
+        const formsignin = sectionlogin.querySelector('form');
+        formsignin.addEventListener('submit', function (e) {
+            e.preventDefault()
+            const payload = new URLSearchParams(new FormData(this));
+            sendSignin(payload)
+        })
+        const linkcancel = formsignin.querySelector('a')
+        linkcancel.addEventListener('click', function (e) {
+            e.preventDefault()
+            checkLogin()
+        })
+}
+
+const sendSignin = (payload) => {
+    fetch('user/signin', {
+        method: 'POST',
+        body: payload,
+    })
+        .then(res => res.json())
+        .then(data => {
+            const { username, token } = data
+            if (username && token) {
+                localStorage.setItem('username', username)
+                localStorage.setItem('token', token)
+            }
+            checkLogin()
         })
 }
 
@@ -59,8 +103,8 @@ const sendLogout = () => {
                 localStorage.removeItem('username')
                 localStorage.removeItem('token')
             }
-            checklogin()
+            checkLogin()
         })
 }
 
-checklogin()
+checkLogin()
