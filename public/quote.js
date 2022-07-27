@@ -1,31 +1,29 @@
 const sectionquote = document.querySelector("#sectionquote")
-sectionquote.innerHTML = `<p></p>`
-const quote = sectionquote.querySelector('p')
+const quote = document.createElement('p')
+sectionquote.appendChild(quote)
 
-const fetchQuote = (ev) => {
+const fetchQuote = () => {
     const token = localStorage.getItem('token')
-    fetch('quote',
-        {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            const { quoteText, quoteAuthor } = data
-            if (quoteText && quoteAuthor) {
-                quote.innerHTML = `${quoteText} <i>${quoteAuthor}</i>`
-            }
-        })
+    if (token) {
+        fetch('quote', { headers: { authorization: `Bearer ${token}` } })
+            .then(res => res.json())
+            .then(data => displayQuote(data))
+    }
 }
 
-const observerCallback = function(mutationList, observer) {
-    for(const mutation of mutationList) {
-        if (mutation.type === 'childList') {
-            fetchQuote()
-        }
+const displayQuote = (data) => {
+    const { quoteText, quoteAuthor } = data
+    if (quoteText) {
+        quote.innerHTML = `${quoteText} <i>${quoteAuthor}</i>`
     }
-};
+}
 
-const changesObserver = new MutationObserver(observerCallback)
-changesObserver.observe(sectionlogin,{ childList: true })
+const changesObserver = new MutationObserver(function (mutationList) {
+    for (let _ of mutationList) {
+        fetchQuote()
+    }
+})
+
+changesObserver.observe(sectionlogin, { childList: true })
+
+fetchQuote()
