@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes')
-const User = require('../user/model')
+const User = require('./model')
 
 const signin = async (req, res) => {
   const user = await User.create({ ...req.body })
