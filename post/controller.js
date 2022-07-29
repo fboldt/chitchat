@@ -2,7 +2,7 @@ const { StatusCodes } = require('http-status-codes')
 const Post = require('./model')
 
 const getAllPosts = async (req, res) => {
-    const posts = await Post.find().sort({createdAt: -1})
+    const posts = await Post.find().sort({ createdAt: -1 })
     res.status(StatusCodes.OK).json({ posts })
 }
 
@@ -14,7 +14,18 @@ const createPost = async (req, res) => {
 }
 
 const deletePost = async (req, res) => {
-    console.log('delete a post')
+    const {
+        user: { userId },
+        params: { id: postId },
+    } = req
+    const post = await Post.findByIdAndRemove({
+        _id: postId,
+        createdBy: userId,
+    })
+    if (post) {
+        return res.status(StatusCodes.OK).json({ 'success': 'true' })
+    }
+    return res.status(StatusCodes.NOT_FOUND).json({ 'success': 'false' })
 }
 
 module.exports = { getAllPosts, createPost, deletePost } 

@@ -43,7 +43,7 @@ const sendLogin = (payload) => {
                 localStorage.setItem('username', username)
                 localStorage.setItem('token', token)
             }
-            checkLogin()
+            document.location.reload()
         })
 }
 
@@ -81,12 +81,12 @@ const sendSignin = (payload) => {
                 localStorage.setItem('username', username)
                 localStorage.setItem('token', token)
             }
-            checkLogin()
+            document.location.reload()
         })
 }
 
 const displayLinkLogout = (username) => {
-    sectionlogin.innerHTML = `${username} <a href="#">logout</a>`
+    sectionlogin.innerHTML = `<span>${username}</span> <a href="#">logout</a>`
     const linklogout = sectionlogin.querySelector('a');
     linklogout.addEventListener('click', function (e) {
         e.preventDefault()
@@ -103,7 +103,7 @@ const sendLogout = () => {
                 localStorage.removeItem('username')
                 localStorage.removeItem('token')
             }
-            checkLogin()
+            document.location.reload()
         })
 }
 

@@ -57,8 +57,38 @@ const formatPost = (post) => {
         <b>${post.author}</b><br>
         <i>(${post.createdAt})</i><br>
         ${post.textContent}`
+    const loggedUser = sectionlogin.querySelector('span')
+    if (loggedUser && loggedUser.innerText == post.author) {
+        fpost.innerHTML += `<span class="fa fa-trash-o" 
+                            style="margin-left:1em" 
+                            data-postid="${post._id}">
+                            </span>`
+        const buttonDelete = fpost.querySelector('span')
+        buttonDeleteSetBehavior(buttonDelete)
+    }
     return fpost
 }
+
+const buttonDeleteSetBehavior = (buttonDelete) => {
+    buttonDelete.addEventListener('click', function (ev) {
+        const postid = this.dataset.postid
+        const token = localStorage.getItem('token')
+        if (token) {
+            fetch(`post/${postid}`, {
+                method: 'DELETE',
+                headers: { authorization: `Bearer ${token}` },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    const { success } = data
+                    if (success) {
+                        buttonDelete.parentNode.remove()
+                    }
+                })
+        }
+    })
+}
+
 
 displayCreatePost()
 fetchPosts()

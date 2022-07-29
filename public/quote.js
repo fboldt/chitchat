@@ -18,12 +18,4 @@ const displayQuote = (data) => {
     }
 }
 
-const changesObserver = new MutationObserver(function (mutationList) {
-    for (let _ of mutationList) {
-        fetchQuote()
-    }
-})
-
-changesObserver.observe(sectionlogin, { childList: true })
-
 fetchQuote()
