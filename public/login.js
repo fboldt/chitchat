@@ -16,7 +16,7 @@ const displayFormLogin = () => {
             <input type="text" name="username" placeholder="username" size="6">
             <input type="password" name="password" placeholder="password" size="6">
             <button type="submit">login</button>
-            <a href="#">sign in</a>
+            <a href="#">sign up</a>
         </form>`
     const formlogin = sectionlogin.querySelector('form');
     formlogin.addEventListener('submit', function (e) {
@@ -53,7 +53,7 @@ const displayFormSignin = () => {
             <input type="text" name="username" placeholder="username" size="6">
             <input type="text" name="email" placeholder="email" size="6">
             <input type="password" name="password" placeholder="password" size="6">
-            <button type="submit">sign in</button>
+            <button type="submit">sign up</button>
             <a href="#">cancel</a>
         </form>`
         const formsignin = sectionlogin.querySelector('form');

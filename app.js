@@ -21,7 +21,7 @@ app.use('/post', postsRoutes)
 const port = process.env.PORT || 3000
 const start = async () => {
     try {
-        mongoose.connect(process.env.MONGO_URI);
+        mongoose.connect(process.env.MONGO_URI).catch(err => console.log(err));
         app.listen(port, () =>
             console.log(`Server is listening on port ${port}...`)
         );
