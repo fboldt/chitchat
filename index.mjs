@@ -14,20 +14,23 @@ app.use(express.static(__dirname + '/public'))
 const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
-    res.render('home', { quote: getQuote() })
+    getQuote((err, data) => {
+        if (err) {
+            res.status(500).render('500')
+        }
+        res.render('home', { quote: data })
+    })
 })
 
 app.get('/sobre', (req, res) => res.render('sobre'))
 
 app.use((req, res) => {
-    res.status(404)
-    res.render('404')
+    res.status(404).render('404')
 })
 
 app.use((err, req, res, next) => {
     console.error(err.message)
-    res.status(500)
-    res.render('500')
+    res.status(500).render('500')
 })
 
 app.listen(port, () => console.log(`sevidor iniciado na porta ${port},` +
