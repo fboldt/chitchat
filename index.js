@@ -1,6 +1,7 @@
 import express from 'express'
 import { engine } from 'express-handlebars'
 import path from 'path';
+import handlers from './lib/handlers.js';
 
 const app = express()
 
@@ -12,20 +13,13 @@ app.use(express.static(__dirname + '/public'))
 
 const port = process.env.PORT || 3000
 
-app.get('/', (req, res) => res.render('home'))
+app.get('/', handlers.home)
 
-app.get('/sobre', (req, res) => res.render('sobre'))
+app.get('/sobre', handlers.sobre)
 
-app.use((req, res) => {
-    res.status(404)
-    res.render('404')
-})
+app.use(handlers.notFound)
 
-app.use((err, req, res, next) => {
-    console.error(err.message)
-    res.status(500)
-    res.render('500')
-})
+app.use(handlers.serverError)
 
 app.listen(port, () => console.log(`sevidor iniciado na porta ${port},` +
     ' pressione Ctrl+c para terminar...'))
