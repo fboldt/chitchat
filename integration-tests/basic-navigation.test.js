@@ -27,3 +27,16 @@ test('link da página inicial para a página sobre', async () => {
     expect(page.url()).toBe(`http://localhost:${port}/sobre`)
     await browser.close()
 })
+
+
+test('link da página inicial para o formulário de login', async () => {
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage()
+    await page.goto(`http://localhost:${port}`)
+    await Promise.all([
+        page.waitForNavigation(),
+        page.click('[data-test-id="login"'),
+    ])
+    expect(page.url()).toBe(`http://localhost:${port}/login`)
+    await browser.close()
+})
