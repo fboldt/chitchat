@@ -22,7 +22,7 @@ test('link da página inicial para a página sobre', async () => {
     await page.goto(`http://localhost:${port}`)
     await Promise.all([
         page.waitForNavigation(),
-        page.click('[data-test-id="sobre"'),
+        page.click('[data-test-id="sobre"]'),
     ])
     expect(page.url()).toBe(`http://localhost:${port}/sobre`)
     await browser.close()

@@ -12,11 +12,17 @@ app.set('view engine', 'handlebars')
 const __dirname = path.resolve();
 app.use(express.static(__dirname + '/public'))
 
+app.use(express.urlencoded({ extended: false }))
+
 const port = process.env.PORT || 3000
 
 app.get('/', handlers.home)
 
 app.get('/sobre', handlers.sobre)
+
+app.get('/login', handlers.loginForm)
+
+app.post('/login', handlers.loginAction)
 
 app.use(handlers.notFound)
 
