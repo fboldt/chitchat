@@ -1,10 +1,12 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import expressSession from 'express-session'
 import { engine } from 'express-handlebars'
 import path from 'path';
 import * as url from 'node:url';
 import { credentials  } from './.credentials.js';
 import handlers from './lib/handlers.js';
+import flashMiddleware from './lib/middleware/flash.js'
 
 const app = express()
 
@@ -20,7 +22,12 @@ app.use(cookieParser(credentials.cookieSecret))
 app.get('/bakecookie', handlers.bakeCookie)
 app.get('/clearcookie', handlers.cleanCookie)
 
-
+app.use(expressSession({ 
+    resave: false,
+    saveUninitialized: false,
+    secret: credentials.cookieSecret,
+ }))
+app.use(flashMiddleware)
 
 const port = process.env.PORT || 3000
 
