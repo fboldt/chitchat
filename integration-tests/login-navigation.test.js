@@ -38,10 +38,10 @@ test('falha ao tentar logar', async () => {
         page.waitForSelector('input[name=senha]'),
         page.$eval('input[name=senha]', el => el.value = ''),
         page.click('input[type="submit"]'),
-        page.waitForSelector('h1')
+        page.waitForSelector('h2')
     ])
-    const title = await page.$('h1')
-    const text = await page.evaluate(h1 => h1.textContent, title)
+    const title = await page.$('h2')
+    const text = await page.evaluate(h2 => h2.textContent, title)
     expect(text).toBe("Falha no login")
     await browser.close()
 })
@@ -56,10 +56,10 @@ test('login com sucesso', async () => {
         page.waitForSelector('input[name=senha]'),
         page.$eval('input[name=senha]', el => el.value = '123'),
         page.click('input[type="submit"]'),
-        page.waitForSelector('h1')
+        page.waitForSelector('h2')
     ])
-    const title = await page.$('h1')
-    const text = await page.evaluate(h1 => h1.textContent, title)
+    const title = await page.$('h2')
+    const text = await page.evaluate(h2 => h2.textContent, title)
     expect(text).toBe("Login efetuado com sucesso")
     await browser.close()
 })

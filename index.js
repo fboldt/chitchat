@@ -4,9 +4,9 @@ import expressSession from 'express-session'
 import { engine } from 'express-handlebars'
 import path from 'path';
 import * as url from 'node:url';
-import { credentials  } from './.credentials.js';
+import { credentials } from './.credentials.js';
 import handlers from './lib/handlers.js';
-import flashMiddleware from './lib/middleware/flash.js'
+import { authMiddleware } from './lib/auth.js'
 
 const app = express()
 
@@ -27,7 +27,7 @@ app.use(expressSession({
     saveUninitialized: false,
     secret: credentials.cookieSecret,
  }))
-app.use(flashMiddleware)
+app.use(authMiddleware)
 
 const port = process.env.PORT || 3000
 
@@ -38,6 +38,8 @@ app.get('/sobre', handlers.sobre)
 app.get('/login', handlers.loginForm)
 
 app.post('/login', handlers.loginAction)
+
+app.get('/logout', handlers.logout)
 
 app.use(handlers.notFound)
 

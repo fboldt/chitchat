@@ -1,6 +1,8 @@
-{{#unless username}}
+{{#if username}}
+<p><strong>{{username}}</strong> <a href="/logout">sair</a></p>
+{{else}}
 <p><a href="/login">entrar</a></p>
-{{/unless}}
+{{/if}}
 <p><a href="/sobre" data-test-id="sobre">Saiba mais</a></p>
 <p>
 <blockquote>"{{quote.text}}" -
