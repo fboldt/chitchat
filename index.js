@@ -2,10 +2,10 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import expressSession from 'express-session'
 import { engine } from 'express-handlebars'
-import path from 'path';
-import * as url from 'node:url';
-import { credentials } from './.credentials.js';
-import handlers from './lib/handlers.js';
+import path from 'path'
+import * as url from 'node:url'
+import { credentials } from './.credentials.js'
+import handlers from './lib/handlers.js'
 import { authMiddleware } from './lib/auth.js'
 
 const app = express()
@@ -40,6 +40,10 @@ app.get('/login', handlers.loginForm)
 app.post('/login', handlers.loginAction)
 
 app.get('/logout', handlers.logout)
+
+app.get('/signin', handlers.signinForm)
+
+app.post('/signin', handlers.signinAction)
 
 app.use(handlers.notFound)
 
