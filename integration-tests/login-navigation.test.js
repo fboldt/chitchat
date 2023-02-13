@@ -7,12 +7,12 @@ import app from '../index'
 let server = null
 let port = null
 
-beforeEach(async () => {
+beforeAll(async () => {
     port = await portfinder.getPortPromise()
     server = app.listen(port)
 })
 
-afterEach(() => {
+afterAll(() => {
     server.close()
 })
 

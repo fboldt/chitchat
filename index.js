@@ -1,7 +1,9 @@
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import { engine } from 'express-handlebars'
 import path from 'path';
 import * as url from 'node:url';
+import { credentials  } from './.credentials.js';
 import handlers from './lib/handlers.js';
 
 const app = express()
@@ -13,6 +15,12 @@ const __dirname = path.resolve();
 app.use(express.static(__dirname + '/public'))
 
 app.use(express.urlencoded({ extended: false }))
+
+app.use(cookieParser(credentials.cookieSecret))
+app.get('/bakecookie', handlers.bakeCookie)
+app.get('/clearcookie', handlers.cleanCookie)
+
+
 
 const port = process.env.PORT || 3000
 
