@@ -22,11 +22,11 @@ app.use(cookieParser(credentials.cookieSecret))
 app.get('/bakecookie', handlers.bakeCookie)
 app.get('/clearcookie', handlers.cleanCookie)
 
-app.use(expressSession({ 
+app.use(expressSession({
     resave: false,
     saveUninitialized: false,
     secret: credentials.cookieSecret,
- }))
+}))
 app.use(authMiddleware)
 
 const port = process.env.PORT || 3000
@@ -45,15 +45,23 @@ app.get('/signin', handlers.signinForm)
 
 app.post('/signin', handlers.signinAction)
 
+app.get('/confirm', handlers.confirmEmail)
+
 app.use(handlers.notFound)
 
 app.use(handlers.serverError)
 
-if (import.meta.url.startsWith('file:')) { 
+if (import.meta.url.startsWith('file:')) {
     const modulePath = url.fileURLToPath(import.meta.url);
-    if (process.argv[1] === modulePath) { 
-        app.listen(port, () => console.log(`sevidor iniciado na porta ${port},` +
-            ' pressione Ctrl+c para terminar...'))
+    if (process.argv[1] === modulePath) {
+        const server = app.listen(port, () => {
+            let serverAddress = server.address().address
+            if (serverAddress == "::" || serverAddress == "127.0.0.1") {
+                serverAddress = "localhost"
+            }
+            console.log(`sevidor iniciado em http://${serverAddress}:${port},` +
+                ' pressione Ctrl+c para terminar...')
+        })
     }
 }
 
