@@ -52,9 +52,9 @@ test('login com sucesso', async () => {
     await page.goto(`http://localhost:${port}/login`)
     await Promise.all([
         page.waitForSelector('input[name=email]'),
-        page.$eval('input[name=email]', el => el.value = 'alice'),
+        page.$eval('input[name=email]', el => el.value = 'a@s'),
         page.waitForSelector('input[name=senha]'),
-        page.$eval('input[name=senha]', el => el.value = '123'),
+        page.$eval('input[name=senha]', el => el.value = '1'),
         page.click('input[type="submit"]'),
         page.waitForSelector('h2')
     ])
