@@ -3,10 +3,11 @@ import expressSession from 'express-session'
 import { engine } from 'express-handlebars'
 import path from 'path'
 import * as url from 'node:url'
-import { credentials } from './.credentials.js'
 import handlers from './lib/handlers.js'
 import { getSessionUser } from './middlewares/auth.js'
 import authRoutes from './routes/auth.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const app = express()
 
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(expressSession({
     resave: false,
     saveUninitialized: false,
-    secret: credentials.secret,
+    secret: process.env.SESSION_SECRET,
 }))
 app.use(getSessionUser)
 app.get('/', handlers.home)

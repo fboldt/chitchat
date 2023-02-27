@@ -1,12 +1,13 @@
 import nodemailer from 'nodemailer'
-import { credentials } from '../.credentials.js'
 import { saveUser, checkUser, checkCredentials } from '../models/users.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const mailTransport = nodemailer.createTransport({
     host: 'smtp.sendgrid.net',
     auth: {
-        user: credentials.sendgrid.username,
-        pass: credentials.sendgrid.password,
+        user: process.env.SENDGRID_USERNAME,
+        pass: process.env.SENDGRID_PASSWORD,
     }
 })
 
