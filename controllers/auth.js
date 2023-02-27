@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer'
 import { credentials } from '../.credentials.js'
-import { saveUser, checkUser, checkCredentials } from './users.js'
+import { saveUser, checkUser, checkCredentials } from '../models/users.js'
 
 const mailTransport = nodemailer.createTransport({
     host: 'smtp.sendgrid.net',
@@ -43,7 +43,7 @@ async function signinAction(req, res) {
         try {
             const confirmationCode = generateConfirmartionCode()
             confirmationCodes[`${confirmationCode}`] = { email, senha }
-            const link = `http://localhost:3000/confirm?cc=${confirmationCode}`
+            const link = `http://localhost:3000/login/confirm?cc=${confirmationCode}`
             /*
             const result = await mailTransport.sendMail({
                 from: '"Professor Francisco" <franciscoa@ifes.edu.br>',
@@ -74,9 +74,4 @@ function confirmEmail(req, res) {
     res.render('confirmation', { success, layout: false })
 }
 
-function authMiddleware(req, res, next) {
-    res.locals.username = req.session.username
-    next()
-}
-
-export { loginAction, signinAction, authMiddleware, confirmEmail, logout }
+export { loginAction, signinAction, confirmEmail, logout }

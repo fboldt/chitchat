@@ -21,7 +21,7 @@ function getQuote(callback) {
             quotesArray = JSON.parse(data)
             idx = Math.floor(Math.random() * quotesArray.length)
         } catch (error) {
-            return callback(err)
+            return callback(error)
         }
         callback(null, quotesArray[idx])
     })
