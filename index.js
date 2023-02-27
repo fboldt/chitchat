@@ -1,5 +1,6 @@
 import express from 'express'
 import expressSession from 'express-session'
+import { MemoryStore } from 'express-session'
 import { engine } from 'express-handlebars'
 import path from 'path'
 import * as url from 'node:url'
@@ -23,8 +24,12 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET,
+    store: new MemoryStore({
+      checkPeriod: 86400000 
+    }),
 }))
 app.use(getSessionUser)
+
 app.get('/', handlers.home)
 app.get('/sobre', handlers.sobre)
 
