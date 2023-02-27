@@ -3,7 +3,7 @@
   "name": "chitchat",
   "version": "1.0.0",
   "description": "Desenvolvimento didático de uma rede social simples.",
-  "main": "index.mjs",
+  "main": "index.js",
   "dependencies": {
     "abbrev": "^1.1.1",
     "accepts": "^1.3.8",
@@ -102,8 +102,8 @@
   },
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "dev": "nodemon index.mjs",
-    "start": "node index.mjs"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
