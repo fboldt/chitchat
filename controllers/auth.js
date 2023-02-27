@@ -43,8 +43,9 @@ async function signinAction(req, res) {
         try {
             const confirmationCode = generateConfirmartionCode()
             confirmationCodes[`${confirmationCode}`] = { email, senha }
-            const link = `http://localhost:3000/login/confirm?cc=${confirmationCode}`
-            /*
+            const host = req.headers.host
+            const link = `http://${host}/login/confirm?cc=${confirmationCode}`
+            //*
             const result = await mailTransport.sendMail({
                 from: '"Professor Francisco" <franciscoa@ifes.edu.br>',
                 to: email,
