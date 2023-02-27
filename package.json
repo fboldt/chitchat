@@ -54,7 +54,6 @@
     "is-glob": "^4.0.3",
     "is-number": "^7.0.0",
     "media-typer": "^0.3.0",
-    "memorystore": "^1.6.7",
     "merge-descriptors": "^1.0.1",
     "methods": "^1.1.2",
     "mime": "^1.6.0",
