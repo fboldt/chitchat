@@ -2,9 +2,9 @@ import { getQuoteSync } from '../controllers/quotes.js'
 
 const handlers = {}
 
-handlers.home = async (req, res) => {
+handlers.home = (req, res) => {
     try {
-        const data = await getQuoteSync()
+        const data = getQuoteSync()
         res.render('home', { quote: data })
     } catch (error) {
         res.status(500).render('500')
