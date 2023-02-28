@@ -1,4 +1,4 @@
-import { expect, jest, test, beforeEach, afterEach } from '@jest/globals';
+import { expect, test, beforeEach, afterEach } from '@jest/globals';
 
 import portfinder from 'portfinder'
 import puppeteer from 'puppeteer'
@@ -20,10 +20,7 @@ test('link da página inicial para a página sobre', async () => {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
     await page.goto(`http://localhost:${port}`)
-    await Promise.all([
-        page.waitForNavigation(),
-        page.click('[data-test-id="sobre"]'),
-    ])
+    await page.click('[data-test-id="sobre"]')
     expect(page.url()).toBe(`http://localhost:${port}/sobre`)
     await browser.close()
 })
