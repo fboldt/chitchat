@@ -29,7 +29,7 @@ test('link da página inicial para o formulário de login', async () => {
 test('falha ao tentar logar', async () => {
     const page = await browser.newPage()
     await page.goto(`http://localhost:${port}/login`)
-    await page.$eval('input[name=email]', el => el.value = '')
+    await page.$eval('input[name=email]', el => el.value = 'a@s')
     await page.$eval('input[name=senha]', el => el.value = '')
     await page.click('input[type="submit"]')   
     await page.waitForSelector('h2') 

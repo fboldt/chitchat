@@ -3,7 +3,8 @@ import expressSession from 'express-session'
 import { engine } from 'express-handlebars'
 import path from 'path'
 import * as url from 'node:url'
-import handlers from './handlers/basic.js'
+import basicHandlers from './handlers/basic.js'
+import basicRoutes from './routes/basic.js'
 import { getSessionUser } from './middlewares/auth.js'
 import authRoutes from './routes/auth.js'
 import dotenv from 'dotenv'
@@ -25,13 +26,14 @@ app.use(expressSession({
     secret: process.env.SESSION_SECRET,
 }))
 app.use(getSessionUser)
-app.get('/', handlers.home)
-app.get('/sobre', handlers.sobre)
+
+app.use('/', basicRoutes)
 
 app.use('/login', authRoutes)
 
-app.use(handlers.notFound)
-app.use(handlers.serverError)
+app.use(basicHandlers.notFound)
+app.use(basicHandlers.serverError)
+
 const port = process.env.PORT || 3000
 if (import.meta.url.startsWith('file:')) {
     const modulePath = url.fileURLToPath(import.meta.url);
@@ -41,6 +43,7 @@ if (import.meta.url.startsWith('file:')) {
             if (serverAddress == "::" || serverAddress == "127.0.0.1") {
                 serverAddress = "localhost"
             }
+            console.log(process.env.NODE_ENV)
             console.log(`sevidor iniciado em http://${serverAddress}:${port},` +
                 ' pressione Ctrl+c para terminar...')
         })

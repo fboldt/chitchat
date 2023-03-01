@@ -1,4 +1,4 @@
-import handlers from "./basic.js";
+import handlers from "../basic.js";
 import { expect, jest, test } from '@jest/globals';
 
 test('rederizador da página inicial', async () => {
