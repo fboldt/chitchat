@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 import pgpkg from 'pg';
-const { Pool, Client } = pgpkg;
+const { Client } = pgpkg;
 
 let client
 if (process.env.NODE_ENV == "development") {
@@ -11,13 +11,27 @@ if (process.env.NODE_ENV == "development") {
 }
 
 async function now() {
-    const res = await client.query('SELECT NOW()')
-    console.log(res.rows)
-    return res
+    const { rows } = await client.query('SELECT NOW()')
+    console.log(rows)
+    return rows
+}
+
+async function createTableUsers() {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY, 
+            email varchar(64) NOT NULL,
+            senha varchar(256) NOT NULL UNIQUE
+        )
+    `
+    const { rows } = await client.query(sql)
+    console.log(rows)
+    return rows
 }
 
 async function init() {
     await now()
+    await createTableUsers()
 }
 
 client.connect().then(async () => {
