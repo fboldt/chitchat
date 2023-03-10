@@ -1,31 +1,4 @@
-import dotenv from 'dotenv'
-dotenv.config()
-import pgpkg from 'pg';
-const { Client } = pgpkg;
-
-function getClient() {
-    let client
-    if (process.env.NODE_ENV == "development") {
-        client = new Client()
-    } else {
-        client = new Client({ "connectionString": `${process.env.PG_CONNECTION_STRING}` })
-    }
-    return client
-}
-
-async function executeQuery(query, values = null) {
-    const client = getClient()
-    await client.connect()
-    let res
-    if (values == null) {
-        res = await client.query(query)
-    } else {
-        res = await client.query(query, [email, senha])
-    }
-    const rows = res.rows
-    console.log(rows)
-    return rows
-}
+import { executeQuery } from "./postgres.js"
 
 async function insertUser(email, senha) {
     const query = `INSERT INTO users (email, senha) VALUES ($1, $2)`
@@ -33,12 +6,27 @@ async function insertUser(email, senha) {
     return await executeQuery(query, values)
 }
 
-async function checkUser(email) {
+async function userExists(email) {
     const query = `SELECT * FROM users WHERE email = '${email}'`
+    const rows = await executeQuery(query)
+    return rows.length > 0
+}
+
+async function userCredentials(email, senha) {
+    const query = `SELECT * FROM users WHERE email = '${email}' AND senha = '${senha}'`
+    const rows = await executeQuery(query)
+    if (rows.length == 0) return false
+    return rows[0]
+}
+
+async function removeUser(email) {
+    const query = `DELETE FROM users WHERE email = '${email}'`
     return await executeQuery(query)
 }
 
-async function checkCredentials(email, senha) {
-    const query = `SELECT * FROM users WHERE email = '${email}' AND senha = '${senha}'`
-    return await executeQuery(query)
-}
+console.log(await insertUser("alice", "123"))
+console.log(await userExists("alice"))
+console.log(await userCredentials("alice", "123"))
+console.log(await removeUser("alice"))
+
+export { insertUser, userExists, userCredentials, removeUser }

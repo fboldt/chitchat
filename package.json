@@ -105,7 +105,7 @@
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "dev": "NODE_ENV=development nodemon index.js",
-    "db:build": "node db/init.js",
+    "db:build": "node db/pginit.js",
     "start": "NODE_ENV=production node index.js"
   },
   "repository": {
