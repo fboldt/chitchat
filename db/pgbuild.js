@@ -17,7 +17,10 @@ async function createTableUsers() {
 }
 
 async function insertTestUser() {
-    const query = `INSERT INTO users (email, senha) VALUES ($1, $2)`
+    let query = `SELECT * FROM users WHERE email = 'test@email.com'`
+    const rows = await executeQuery(query)
+    if (rows.length > 0) return false
+    query = `INSERT INTO users (email, senha) VALUES ($1, $2)`
     const values = ['test@email.com', '123']
     return await executeQuery(query, values)
 }
