@@ -26,10 +26,11 @@ test('link da página inicial para o formulário de login', async () => {
     expect(page.url()).toBe(`http://localhost:${port}/login`)
     await page.close()
 })
+
 test('falha ao tentar logar', async () => {
     const page = await browser.newPage()
     await page.goto(`http://localhost:${port}/login`)
-    await page.$eval('input[name=email]', el => el.value = 'a@s')
+    await page.$eval('input[name=email]', el => el.value = 'test@email.com')
     await page.$eval('input[name=senha]', el => el.value = '')
     await page.click('input[type="submit"]')   
     await page.waitForSelector('h2') 
@@ -42,8 +43,8 @@ test('falha ao tentar logar', async () => {
 test('login com sucesso', async () => {
     const page = await browser.newPage()
     await page.goto(`http://localhost:${port}/login`)
-    await page.$eval('input[name=email]', el => el.value = 'a@s')
-    await page.$eval('input[name=senha]', el => el.value = '1')
+    await page.$eval('input[name=email]', el => el.value = 'test@email.com')
+    await page.$eval('input[name=senha]', el => el.value = '123')
     await page.click('input[type="submit"]')
     await page.waitForSelector('h2')
     const title = await page.$('h2')
