@@ -24,7 +24,7 @@ async function executeQuery(query, values = null) {
     }
     const rows = res.rows
     if (process.env.NODE_ENV == "development") {
-        console.log(rows)
+        console.log(query, ":", rows)
     }
     client.end()
     return rows

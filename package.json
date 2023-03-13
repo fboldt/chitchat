@@ -103,9 +103,11 @@
     "puppeteer": "^19.6.2"
   },
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "NODE_ENV=development NODE_OPTIONS=--experimental-vm-modules jest",
     "dev": "NODE_ENV=development nodemon index.js",
-    "db:build": "node db/pginit.js",
+    "dev:db:build": "NODE_ENV=development node db/pgbuild.js",
+    "dev:db:reset": "NODE_ENV=development node db/pgreset.js",
+    "db:build": "node db/pgbuild.js",
     "start": "NODE_ENV=production node index.js"
   },
   "repository": {
