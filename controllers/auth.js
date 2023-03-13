@@ -53,11 +53,11 @@ async function requestSignin(email, senha, host) {
     return result
 }
 
-function confirmEmail(cc) {
+async function confirmEmail(cc) {
     let success = cc in confirmationCodes
     if (success) {
         const { email, senha } = confirmationCodes[cc]
-        success = saveUser(email, senha)
+        success = await saveUser(email, senha)
     }
     return success
 }

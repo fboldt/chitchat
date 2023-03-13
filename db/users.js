@@ -24,9 +24,4 @@ async function removeUser(email) {
     return await executeQuery(query)
 }
 
-// console.log(await insertUser("alice", "123"))
-// console.log(await userExists("alice"))
-// console.log(await userCredentials("alice", "123"))
-// console.log(await removeUser("alice"))
-
 export { insertUser, userExists, userCredentials, removeUser }

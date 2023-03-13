@@ -1,32 +1,19 @@
-import { readFileSync, writeFileSync } from 'fs'
+import { insertUser, userExists, userCredentials } from '../db/users.js'
 
-const filePath = 'db/users.json'
-
-function isUserInArray(users, email) {
-    return users.some(user => user["email"] == email)
+async function checkUser(email) {
+    return await userExists(email)
 }
 
-function checkUser(email) {
-    const data = readFileSync(filePath)
-    const users = JSON.parse(data)
-    return isUserInArray(users, email)
-}
-
-function saveUser(email, senha) {
-    const data = readFileSync(filePath)
-    const users = JSON.parse(data)
-    if (isUserInArray(users, email)) return false
-    users.push({ email, senha })
-    writeFileSync(filePath, JSON.stringify(users))
+async function saveUser(email, senha) {
+    if (await checkUser(email)) return false
+    await insertUser(email, senha)
     return true
 }
 
-function checkCredentials(email, senha) {
-    const data = readFileSync(filePath)
-    const users = JSON.parse(data)
-    const user = users.find(user => user["email"] == email)
+async function checkCredentials(email, senha) {
+    const user = await userCredentials(email, senha)
     if (!user) return false
-    return user.senha == senha
+    return user.email == email
 }
 
 export { saveUser, checkUser, checkCredentials }

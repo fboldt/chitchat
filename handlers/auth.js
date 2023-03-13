@@ -5,9 +5,9 @@ const handlers = {}
 
 handlers.loginForm = (req, res) => res.render('login_form')
 
-handlers.loginAction = (req, res) => {
+handlers.loginAction = async (req, res) => {
     const { email, senha } = req.body
-    const success = checkCredentials(email, senha)
+    const success = await checkCredentials(email, senha)
     if (success) {
         req.session.username = email
     }
@@ -30,9 +30,9 @@ handlers.signinAction = async (req, res) => {
     res.render('signin', { success, msg })
 }
 
-handlers.confirmEmail = (req, res) => {
+handlers.confirmEmail = async (req, res) => {
     const cc = req.query.cc
-    const success = confirmEmail(cc)
+    const success = await confirmEmail(cc)
     res.render('confirmation', { success, layout: false })
 }
 
