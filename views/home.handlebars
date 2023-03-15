@@ -1,5 +1,6 @@
 {{#if username}}
 <p><strong>{{username}}</strong> <a href="/login/logout">sair</a></p>
+{{> sendpost}}
 {{else}}
 <p><a href="/login">entrar</a> - <a href="/login/signin">cadastrar</a></p>
 {{/if}}
@@ -9,3 +10,4 @@
     <strong>{{quote.author}}</strong>
 </blockquote>
 </p>
+{{> posts}}

@@ -16,6 +16,19 @@ async function createTableUsers() {
     return rows
 }
 
+async function createTablePosts() {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS posts (
+            id SERIAL PRIMARY KEY,
+            author INTEGER REFERENCES users(id),
+            text VARCHAR(256),
+            created_at TIMESTAMPTZ DEFAULT NOW()
+        )
+    `
+    const rows = await executeQuery(sql)
+    return rows
+}
+
 async function insertTestUser() {
     let query = `SELECT * FROM users WHERE email = 'test@email.com'`
     const rows = await executeQuery(query)
@@ -28,7 +41,12 @@ async function insertTestUser() {
 async function init() {
     console.log(await executeQuery('SELECT NOW()'))
     console.log(await createTableUsers())
-    console.log(await insertTestUser())
+    try {
+        console.log(await insertTestUser())
+    } catch (err) {
+        console.log(err)
+    }
+    console.log(await createTablePosts())
 }
 
 await init()

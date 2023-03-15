@@ -1,11 +1,13 @@
 import { getQuoteSync } from '../controllers/quotes.js'
+import { listPosts } from '../controllers/posts.js'
 
 const handlers = {}
 
-handlers.home = (req, res) => {
+handlers.home = async (req, res) => {
     try {
-        const data = getQuoteSync()
-        res.render('home', { quote: data })
+        const quote = getQuoteSync()
+        const posts = await listPosts()
+        res.render('home', { quote, posts })
     } catch (error) {
         res.status(500).render('500')
     }
