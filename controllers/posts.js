@@ -6,7 +6,7 @@ async function insertPost(email, text) {
 
 async function listPosts() {
     const posts = await dbListPosts()
-    return posts.values()
+    return posts
 }
 
 export { listPosts, insertPost }

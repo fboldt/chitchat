@@ -1,17 +1,17 @@
 import express from 'express'
 const router = express.Router()
-import authHandlers from '../handlers/auth.js'
+import handlers from '../handlers/auth.js'
 
-router.get('/', authHandlers.loginForm)
+router.get('/', handlers.loginForm)
 
-router.post('/', authHandlers.loginAction)
+router.post('/', handlers.loginAction)
 
-router.get('/logout', authHandlers.logout)
+router.get('/logout', handlers.logout)
 
-router.get('/signin', authHandlers.signinForm)
+router.get('/signin', handlers.signinForm)
 
-router.post('/signin', authHandlers.signinAction)
+router.post('/signin', handlers.signinAction)
 
-router.get('/confirm', authHandlers.confirmEmail)
+router.get('/confirm', handlers.confirmEmail)
 
 export default router

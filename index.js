@@ -7,6 +7,7 @@ import basicHandlers from './handlers/basic.js'
 import basicRoutes from './routes/basic.js'
 import { getSessionUser } from './middlewares/auth.js'
 import authRoutes from './routes/auth.js'
+import postRoutes from './routes/posts.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -30,6 +31,8 @@ app.use(getSessionUser)
 app.use('/', basicRoutes)
 
 app.use('/login', authRoutes)
+
+app.use('/post', postRoutes)
 
 app.use(basicHandlers.notFound)
 app.use(basicHandlers.serverError)
