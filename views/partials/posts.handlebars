@@ -1,9 +1,14 @@
 <section id="posts">
     {{#each posts}}
-        <p>
-            <b>{{email}}:</b>
-            {{text}} <br>
-            <i style="font-size: xx-small;">{{created_at}}</i>
-        </p>
-    {{/each}} 
+    <p>
+        <b>{{email}}:</b>
+        {{text}} 
+        <script>
+            if ("{{email}}" == "{{../logged}}") {
+                document.write(` - <a href="/postdelete?id={{id}}">x</a>`)
+            }        
+        </script>
+        <br><i style="font-size: xx-small;">{{created_at}}</i>
+    </p>
+    {{/each}}
 </section>

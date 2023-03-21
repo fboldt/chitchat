@@ -6,4 +6,8 @@
 {{/if}}
 <p><a href="/sobre" data-test-id="sobre">Saiba mais</a></p>
 {{> quotes}}
+{{#if username}}
+{{> posts logged=username}}
+{{else}}
 {{> posts}}
+{{/if}}
