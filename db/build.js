@@ -1,4 +1,4 @@
-import { executeQuery } from "./postgres.js"
+import { executeQuery } from "./connect.js"
 
 async function showTables() {
     return await executeQuery(`SELECT  * FROM information_schema.tables;`)

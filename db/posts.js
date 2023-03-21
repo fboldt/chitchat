@@ -1,4 +1,4 @@
-import { executeQuery } from "./postgres.js"
+import { executeQuery } from "./connect.js"
 
 async function insertPost(authorEmail, text) {
     let query = `SELECT id FROM users WHERE email = '${authorEmail}'`
@@ -12,7 +12,7 @@ async function insertPost(authorEmail, text) {
 
 async function listPosts() {
     const query = `SELECT posts.id, users.email, posts.text, posts.created_at 
-        FROM posts INNER JOIN users ON posts.author=users.id`
+        FROM posts INNER JOIN users ON posts.author=users.id ORDER BY posts.created_at DESC`
     return await executeQuery(query)
 }
 

@@ -1,4 +1,4 @@
-import { executeQuery } from "./postgres.js"
+import { executeQuery } from "./connect.js"
 
 async function dropTableUsers() {
     const sql = `DROP TABLE users`

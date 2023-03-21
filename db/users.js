@@ -1,4 +1,4 @@
-import { executeQuery } from "./postgres.js"
+import { executeQuery } from "./connect.js"
 
 async function insertUser(email, senha) {
     const query = `INSERT INTO users (email, senha) VALUES ($1, $2)`
