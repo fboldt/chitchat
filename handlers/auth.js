@@ -1,18 +1,19 @@
 import { confirmEmail, requestSignin } from '../controllers/auth.js'
 import { checkCredentials } from '../controllers/users.js'
-import basicHandler from './basic.js'
 
 const handlers = {}
 
-handlers.loginForm = (req, res) => res.render('login_form')
+handlers.loginForm = (req, res) => res.render('login')
 
 handlers.loginAction = async (req, res) => {
     const { email, senha } = req.body
     const success = await checkCredentials(email, senha)
     if (success) {
         req.session.username = email
+        res.redirect('/')
+    } else {
+        res.render('loginfail')
     }
-    res.redirect('/')
 }
 
 handlers.logout = (req, res) => {
