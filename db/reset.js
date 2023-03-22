@@ -6,7 +6,14 @@ async function dropTableUsers() {
     return rows
 }
 
+async function dropTablePosts() {
+    const sql = `DROP TABLE posts`
+    const rows = await executeQuery(sql)
+    return rows
+}
+
 async function resetDatabase() {
+    console.log(await dropTablePosts())
     console.log(await dropTableUsers())
 }
 

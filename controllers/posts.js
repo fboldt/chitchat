@@ -1,4 +1,4 @@
-import { insertPost as dbInsertPost, listPosts as dbListPosts, deletePost } from '../db/posts.js'
+import { getPost, insertPost as dbInsertPost, listPosts as dbListPosts, deletePost as dbDeletePost } from '../db/posts.js'
 
 async function insertPost(email, text) {
     return await dbInsertPost(email, text)
@@ -9,4 +9,12 @@ async function listPosts() {
     return posts
 }
 
-export { listPosts, insertPost }
+async function deletePost(user, id) {
+    const { email } = await getPost(id)
+    if (email == user) {
+        return await dbDeletePost(id)
+    }
+    return null
+}
+
+export { listPosts, insertPost, deletePost }

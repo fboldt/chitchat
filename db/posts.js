@@ -21,4 +21,14 @@ async function deletePost(id) {
     return await executeQuery(query)
 }
 
-export { insertPost, listPosts, deletePost }
+async function getPost(id) {
+    const query = `SELECT posts.id, users.email, posts.text, posts.created_at 
+        FROM posts INNER JOIN users ON posts.author=users.id WHERE posts.id=${id}`
+    const result = await executeQuery(query)
+    if (result.length > 0) {
+        return result[0]
+    }
+    return null
+}
+
+export { getPost, insertPost, listPosts, deletePost }

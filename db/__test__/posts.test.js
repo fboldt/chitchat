@@ -14,7 +14,7 @@ test('lista posts', async () => {
 
 test('exclui post', async () => {
     let rows = await listPosts()
-    const lastPostId = rows[rows.length-1].id
+    const lastPostId = rows[0].id
     rows = await deletePost(lastPostId)
     expect(rows).toStrictEqual([])
 })
